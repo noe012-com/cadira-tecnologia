@@ -1,0 +1,2694 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#fff7ec">
+<meta name="description" content="Projecte tecnològic de 3r d'ESO: disseny i construcció d'una cadira de cartró amb un calaix lateral per guardar ukeleles.">
+<title>Projecte Cadira | Aprèn, creix i brilla</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+/* =====================================================
+   01. VARIABLES I CONFIGURACIÓ GENERAL
+===================================================== */
+
+:root {
+  --cream:#FFF5E9;
+  --paper:#FFFCF7;
+  --kraft:#D5B18A;
+  --brown:#A96843;
+  --darkbrown:#69432F;
+  --yellow:#FFD75E;
+  --blue:#91C5F2;
+  --pink:#F5B5C8;
+  --purple:#C7B7F2;
+  --green:#BBDDA9;
+  --ink:#38333B;
+  --muted:#756A69;
+  --line:rgba(56,51,59,.18);
+  --shadow:5px 6px 0 var(--ink);
+  --radius:22px;
+  --content:1180px;
+}
+
+* {
+  box-sizing:border-box;
+}
+
+html {
+  scroll-behavior:smooth;
+  scroll-padding-top:105px;
+}
+
+body {
+  margin:0;
+  color:var(--ink);
+  font-family:'DM Sans',sans-serif;
+  background-color:var(--cream);
+  background-image:radial-gradient(#D8BDA3 1px,transparent 1px);
+  background-size:24px 24px;
+  overflow-x:hidden;
+  line-height:1.75;
+}
+
+body::after {
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:200;
+  opacity:.09;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.18'/%3E%3C/svg%3E");
+}
+
+h1,h2,h3,h4,.logo,.sticker,.big-number,.mono {
+  font-family:'Manrope',sans-serif;
+}
+
+h1,h2,h3,h4 {
+  letter-spacing:-1.2px;
+  line-height:1.2;
+}
+
+h1,h2,h3,p {
+  margin-top:0;
+}
+
+h1,h2 {
+  font-weight:800;
+}
+
+h3,h4 {
+  font-weight:750;
+}
+
+a {
+  color:inherit;
+}
+
+img {
+  max-width:100%;
+}
+
+::selection {
+  background:var(--yellow);
+  color:var(--ink);
+}
+
+.container {
+  width:min(var(--content),86%);
+  margin-inline:auto;
+}
+
+.eyebrow,
+.section-tag,
+.micro-label {
+  font-family:'Space Mono',monospace;
+  text-transform:uppercase;
+  letter-spacing:1.2px;
+}
+
+.eyebrow {
+  display:inline-flex;
+  align-items:center;
+  gap:9px;
+  padding:9px 14px;
+  border:1.5px solid var(--ink);
+  border-radius:5px;
+  background:var(--green);
+  box-shadow:3px 3px 0 var(--ink);
+  font-size:10px;
+  font-weight:700;
+  margin-bottom:26px;
+  transform:rotate(-1deg);
+}
+
+.eyebrow-dot {
+  width:7px;
+  height:7px;
+  background:var(--brown);
+  border-radius:50%;
+}
+
+.highlight {
+  position:relative;
+  display:inline-block;
+  isolation:isolate;
+}
+
+.highlight::after {
+  content:"";
+  position:absolute;
+  z-index:-1;
+  left:-3px;
+  bottom:5px;
+  width:105%;
+  height:27%;
+  background:var(--yellow);
+  transform:rotate(-2deg);
+}
+
+.text-muted {
+  color:var(--muted);
+}
+
+.micro-label {
+  font-size:9px;
+  line-height:1.7;
+  font-weight:700;
+}
+
+.section-tag {
+  display:inline-block;
+  padding:8px 13px;
+  margin-bottom:17px;
+  background:var(--pink);
+  border:1.5px solid var(--ink);
+  border-radius:5px;
+  box-shadow:3px 3px 0 var(--ink);
+  font-size:10px;
+  font-weight:700;
+}
+
+.section-heading {
+  position:relative;
+  max-width:760px;
+  margin:0 auto 48px;
+  text-align:center;
+}
+
+.section-heading h2 {
+  font-size:clamp(34px,5vw,55px);
+  margin-bottom:18px;
+}
+
+.section-heading p {
+  max-width:650px;
+  margin:0 auto;
+  color:var(--muted);
+  font-size:14px;
+  line-height:1.95;
+}
+
+.section-heading::after {
+  content:"✳";
+  display:block;
+  margin-top:18px;
+  font-size:19px;
+  color:var(--brown);
+}
+
+section {
+  position:relative;
+  padding:90px 0;
+  scroll-margin-top:85px;
+}
+
+.section-inner {
+  width:min(var(--content),86%);
+  margin-inline:auto;
+}
+
+.decorative-orbit {
+  position:absolute;
+  width:100px;
+  height:100px;
+  border:1px dashed rgba(105,67,47,.4);
+  border-radius:50%;
+  pointer-events:none;
+}
+
+.decorative-orbit::before,
+.decorative-orbit::after {
+  content:"";
+  position:absolute;
+  border:1px solid rgba(105,67,47,.3);
+  border-radius:50%;
+  inset:12px;
+}
+
+.decorative-orbit::after {
+  inset:27px;
+}
+
+.corner-star {
+  position:absolute;
+  top:34px;
+  right:7%;
+  color:#C79726;
+  font-size:31px;
+  animation:float 4s ease-in-out infinite;
+  pointer-events:none;
+}
+
+.side-note {
+  position:absolute;
+  writing-mode:vertical-rl;
+  font-family:'Space Mono',monospace;
+  font-size:9px;
+  letter-spacing:2px;
+  color:var(--brown);
+  opacity:.8;
+  right:16px;
+  top:50%;
+  transform:translateY(-50%);
+}
+
+/* =====================================================
+   02. NAVEGACIÓ
+===================================================== */
+
+nav {
+  position:sticky;
+  top:0;
+  z-index:100;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:18px;
+  padding:13px 6%;
+  background:rgba(255,245,233,.96);
+  border-bottom:1.5px solid var(--ink);
+  backdrop-filter:blur(16px);
+}
+
+.logo {
+  display:flex;
+  align-items:center;
+  gap:9px;
+  text-decoration:none;
+  font-size:17px;
+  font-weight:800;
+  white-space:nowrap;
+  letter-spacing:-.7px;
+}
+
+.logo-mark {
+  display:grid;
+  place-items:center;
+  width:37px;
+  height:37px;
+  background:var(--yellow);
+  border:1.5px solid var(--ink);
+  border-radius:11px;
+  box-shadow:3px 3px 0 var(--ink);
+  transform:rotate(-5deg);
+}
+
+.logo span {
+  color:var(--brown);
+}
+
+.nav-links {
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:flex-end;
+  gap:5px;
+}
+
+.nav-links a {
+  text-decoration:none;
+  font-size:11px;
+  font-weight:700;
+  padding:8px 11px;
+  border:1px solid transparent;
+  border-radius:7px;
+  transition:background .2s,transform .2s,border-color .2s;
+}
+
+.nav-links a:hover,
+.nav-links a:focus-visible {
+  background:var(--yellow);
+  border-color:var(--ink);
+  transform:translateY(-2px);
+  outline:none;
+}
+
+/* =====================================================
+   03. PORTADA
+===================================================== */
+
+.hero {
+  position:relative;
+  min-height:650px;
+  padding:85px 7%;
+  display:grid;
+  grid-template-columns:1.05fr .95fr;
+  align-items:center;
+  gap:45px;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 7% 18%,rgba(245,181,200,.8) 0 72px,transparent 73px),
+    radial-gradient(circle at 95% 84%,rgba(145,197,242,.7) 0 115px,transparent 116px),
+    linear-gradient(135deg,#FFF5E9,#FFF0DD);
+  border-bottom:1.5px solid var(--ink);
+}
+
+.hero::before {
+  content:"";
+  position:absolute;
+  width:180px;
+  height:180px;
+  border:1px dashed rgba(105,67,47,.35);
+  border-radius:50%;
+  top:-100px;
+  right:25%;
+}
+
+.hero::after {
+  content:"";
+  position:absolute;
+  width:240px;
+  height:240px;
+  border:1px dashed rgba(105,67,47,.3);
+  border-radius:50%;
+  bottom:-160px;
+  left:35%;
+}
+
+.hero-copy {
+  position:relative;
+  z-index:2;
+}
+
+.hero h1 {
+  font-size:clamp(55px,7.3vw,94px);
+  line-height:.99;
+  letter-spacing:-4px;
+  margin:0 0 28px;
+}
+
+.hero-copy > p {
+  max-width:510px;
+  color:#625653;
+  font-size:15px;
+  line-height:2;
+}
+
+.hero-buttons {
+  display:flex;
+  flex-wrap:wrap;
+  gap:14px;
+  margin-top:31px;
+}
+
+.button {
+  display:inline-flex;
+  justify-content:center;
+  align-items:center;
+  gap:9px;
+  text-decoration:none;
+  font-size:12px;
+  font-weight:800;
+  padding:13px 19px;
+  border:1.5px solid var(--ink);
+  border-radius:8px;
+  box-shadow:4px 4px 0 var(--ink);
+  transition:transform .2s,box-shadow .2s;
+}
+
+.button:hover {
+  transform:translate(3px,3px);
+  box-shadow:1px 1px 0 var(--ink);
+}
+
+.button-yellow {
+  background:var(--yellow);
+}
+
+.button-pink {
+  background:var(--pink);
+}
+
+.hero-meta {
+  display:flex;
+  flex-wrap:wrap;
+  gap:17px;
+  margin-top:35px;
+  padding-top:18px;
+  border-top:1px solid var(--line);
+  font-family:'Space Mono',monospace;
+  font-size:9px;
+  letter-spacing:.5px;
+}
+
+.hero-meta span {
+  display:flex;
+  align-items:center;
+  gap:7px;
+}
+
+.hero-art {
+  position:relative;
+  min-height:410px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.art-card {
+  position:relative;
+  width:min(100%,390px);
+  aspect-ratio:4/4.25;
+  padding:13px;
+  border:2px solid var(--ink);
+  border-radius:44% 44% 15px 15px;
+  background:#D5AD84;
+  box-shadow:9px 10px 0 var(--ink);
+  transform:rotate(2deg);
+  z-index:1;
+}
+
+.art-inner {
+  width:100%;
+  height:100%;
+  border:1.5px dashed rgba(56,51,59,.6);
+  border-radius:inherit;
+  background:
+    radial-gradient(circle at 15% 20%,rgba(255,255,255,.4) 0 2px,transparent 3px),
+    radial-gradient(circle at 80% 65%,rgba(255,255,255,.3) 0 2px,transparent 3px),
+    linear-gradient(140deg,#E8C9A4,#BC865D);
+  background-size:25px 25px,31px 31px,auto;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:25px;
+}
+
+.chair-photo {
+  width: 180px;
+  height: 150px;
+  object-fit: contain;
+  border-radius: 12px;
+  display: block;
+  margin: 12px auto;
+}
+
+.art-caption {
+  padding:10px 15px;
+  background:var(--paper);
+  border:1.5px solid var(--ink);
+  border-radius:7px;
+  font-family:'Manrope',sans-serif;
+  font-size:16px;
+  font-weight:800;
+  box-shadow:3px 3px 0 var(--ink);
+}
+
+.art-inner p {
+  font-size:11px;
+  margin:14px 0 0;
+}
+
+.floating-star {
+  position:absolute;
+  z-index:3;
+  font-size:43px;
+  animation:float 4s ease-in-out infinite;
+  pointer-events:none;
+}
+
+.star-one {
+  top:5%;
+  right:3%;
+  color:#C79726;
+}
+
+.star-two {
+  bottom:8%;
+  left:1%;
+  color:#8A70CF;
+  animation-delay:-2s;
+}
+
+.star-three {
+  top:23%;
+  left:2%;
+  color:#E889A8;
+  font-size:31px;
+}
+
+.sticker {
+  display:inline-block;
+  padding:9px 13px;
+  border:1.5px solid var(--ink);
+  border-radius:6px;
+  box-shadow:3px 3px 0 var(--ink);
+  font-family:'Manrope',sans-serif;
+  font-size:10px;
+  font-weight:800;
+}
+
+.sticker-blue {
+  position:absolute;
+  right:0;
+  bottom:4%;
+  z-index:4;
+  background:var(--blue);
+  transform:rotate(5deg);
+}
+
+.sticker-pink {
+  position:absolute;
+  top:4%;
+  left:0;
+  z-index:4;
+  background:var(--pink);
+  transform:rotate(-6deg);
+}
+
+.sticker-green {
+  background:var(--green);
+  transform:rotate(-2deg);
+}
+
+.sticker-yellow {
+  background:var(--yellow);
+  transform:rotate(2deg);
+}
+
+@keyframes float {
+  0%,100% { transform:translateY(0) rotate(-8deg); }
+  50% { transform:translateY(-12px) rotate(8deg); }
+}
+
+/* =====================================================
+   04. FRANJA ANIMADA
+===================================================== */
+
+.ticker {
+  overflow:hidden;
+  background:var(--yellow);
+  border-bottom:1.5px solid var(--ink);
+  padding:13px 0;
+  white-space:nowrap;
+  font-family:'Space Mono',monospace;
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:1px;
+}
+
+.ticker-track {
+  display:inline-block;
+  animation:scroll 32s linear infinite;
+}
+
+.ticker:hover .ticker-track {
+  animation-play-state:paused;
+}
+
+@keyframes scroll {
+  from { transform:translateX(0); }
+  to { transform:translateX(-50%); }
+}
+
+/* =====================================================
+   05. TARGETES I GRAELLES
+===================================================== */
+
+.grid {
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:21px;
+}
+
+.card {
+  position:relative;
+  min-width:0;
+  padding:27px;
+  background:var(--paper);
+  border:1.5px solid var(--ink);
+  border-radius:var(--radius);
+  box-shadow:4px 5px 0 var(--ink);
+  transition:transform .25s,box-shadow .25s;
+  overflow:hidden;
+}
+
+.card::after {
+  content:"";
+  position:absolute;
+  width:65px;
+  height:65px;
+  right:-37px;
+  top:-37px;
+  border:1px solid rgba(56,51,59,.25);
+  border-radius:50%;
+}
+
+.card:hover {
+  transform:translateY(-5px);
+  box-shadow:7px 9px 0 var(--ink);
+}
+
+.card-yellow { background:#FFF0B7; }
+.card-blue { background:#DDEEFF; }
+.card-pink { background:#FFE0E9; }
+.card-green { background:#E4F2D9; }
+.card-purple { background:#EAE2FF; }
+
+.card-icon {
+  display:inline-grid;
+  place-items:center;
+  width:52px;
+  height:52px;
+  margin-bottom:20px;
+  background:rgba(255,255,255,.68);
+  border:1px solid var(--ink);
+  border-radius:15px;
+  font-size:27px;
+  transform:rotate(-3deg);
+}
+
+.card h3 {
+  font-size:20px;
+  margin-bottom:12px;
+}
+
+.card p,
+.card li {
+  font-size:13px;
+  line-height:1.95;
+}
+
+.card ul {
+  padding-left:19px;
+  margin-bottom:0;
+}
+
+.card li::marker {
+  color:var(--brown);
+}
+
+.number-label {
+  display:inline-block;
+  padding:6px 10px;
+  margin-bottom:16px;
+  background:var(--yellow);
+  border:1.5px solid var(--ink);
+  border-radius:5px;
+  font-family:'Space Mono',monospace;
+  font-size:9px;
+  font-weight:700;
+}
+
+.card-featured {
+  border-width:2px;
+  box-shadow:6px 7px 0 var(--ink);
+}
+
+.card-featured::before {
+  content:"★ ESCOLLIDA";
+  position:absolute;
+  top:17px;
+  right:15px;
+  font-family:'Space Mono',monospace;
+  font-size:8px;
+  font-weight:700;
+  transform:rotate(4deg);
+}
+
+/* =====================================================
+   06. BLOCS DIVIDITS
+===================================================== */
+
+.split {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:45px;
+  align-items:center;
+}
+
+.split-copy h2 {
+  font-size:clamp(34px,4.8vw,52px);
+  margin-bottom:22px;
+}
+
+.split-copy p {
+  color:#5D5150;
+  font-size:14px;
+  line-height:2;
+}
+
+.paper-panel {
+  position:relative;
+  padding:27px;
+  border:1.5px solid var(--ink);
+  border-radius:24px;
+  background-color:#E8D0B4;
+  background-image:radial-gradient(#C29B7A .8px,transparent .8px);
+  background-size:16px 16px;
+  box-shadow:5px 6px 0 var(--ink);
+}
+
+.paper-panel::before {
+  content:"✳";
+  position:absolute;
+  top:-20px;
+  right:17px;
+  display:grid;
+  place-items:center;
+  width:40px;
+  height:40px;
+  border:1.5px solid var(--ink);
+  border-radius:50%;
+  background:var(--yellow);
+  font-size:21px;
+  transform:rotate(12deg);
+}
+
+.inner-paper {
+  padding:25px;
+  background:var(--paper);
+  border:1.5px dashed var(--brown);
+  border-radius:15px;
+}
+
+.inner-paper h3 {
+  font-size:22px;
+  margin-bottom:19px;
+}
+
+.reference {
+  display:block;
+  padding:13px 15px;
+  margin:11px 0;
+  background:var(--paper);
+  border:1.5px solid var(--ink);
+  border-radius:9px;
+  font-size:12px;
+  font-weight:700;
+  text-decoration:none;
+  transition:background .2s,transform .2s;
+}
+
+.reference:hover {
+  background:var(--yellow);
+  transform:translateX(4px);
+}
+
+.reference-note {
+  padding-top:14px;
+  margin-top:18px;
+  border-top:1px dashed var(--brown);
+  font-size:11px;
+  color:var(--muted);
+  line-height:1.9;
+}
+
+.design-note {
+  display:flex;
+  align-items:flex-start;
+  gap:14px;
+  padding:20px;
+  background:var(--blue);
+  border:1.5px solid var(--ink);
+  border-radius:14px;
+  box-shadow:3px 3px 0 var(--ink);
+}
+
+.design-note-icon {
+  font-size:28px;
+}
+
+.design-note p {
+  margin:0;
+  font-size:12px;
+  line-height:1.9;
+}
+
+/* =====================================================
+   07. GALERIES D'IMATGES
+===================================================== */
+
+.gallery-heading {
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:12px;
+  text-align:center;
+  font-size:clamp(21px,3vw,28px);
+  margin:55px 0 25px;
+}
+
+.gallery-heading::before,
+.gallery-heading::after {
+  content:"";
+  width:32px;
+  height:1px;
+  background:var(--brown);
+}
+
+.photo-grid {
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:20px;
+}
+
+.photo {
+  position:relative;
+  min-width:0;
+  overflow:hidden;
+  background:#E8D0B4;
+  border:1.5px solid var(--ink);
+  border-radius:15px;
+  box-shadow:4px 4px 0 var(--ink);
+  transition:transform .25s,box-shadow .25s;
+}
+
+.photo:nth-child(3n + 2) {
+  transform:translateY(5px);
+}
+
+.photo:hover {
+  z-index:2;
+  transform:translateY(-5px) rotate(-.4deg);
+  box-shadow:7px 8px 0 var(--ink);
+}
+
+.photo img {
+  display:block;
+  width:100%;
+  height:245px;
+  object-fit:cover;
+  background:linear-gradient(135deg,#E8D0B4,#F5E6D5);
+  transition:transform .4s;
+}
+
+.photo:hover img {
+  transform:scale(1.04);
+}
+
+.photo-label {
+  position:relative;
+  padding:13px 14px;
+  background:var(--paper);
+  border-top:1.5px solid var(--ink);
+  font-size:11px;
+  font-weight:800;
+  line-height:1.7;
+}
+
+.photo-label::before {
+  content:"✦";
+  color:var(--brown);
+  margin-right:7px;
+}
+
+.gallery-intro {
+  max-width:680px;
+  margin:-15px auto 26px;
+  text-align:center;
+  font-size:12px;
+  color:var(--muted);
+  line-height:1.9;
+}
+
+.photo-grid.single {
+  grid-template-columns:minmax(0,390px);
+  justify-content:center;
+}
+
+.photo-grid.single .photo img {
+  height:auto;
+  min-height:220px;
+  max-height:460px;
+  object-fit:contain;
+  background:#F1E5D8;
+}
+
+.photo-grid.plans .photo img {
+  height:220px;
+  object-fit:contain;
+  background:#FFFCF7;
+}
+
+.photo-grid.poster .photo img {
+  height:auto;
+  min-height:300px;
+  max-height:620px;
+  object-fit:contain;
+  background:#F1E5D8;
+}
+
+.photo-grid.final-photos .photo img {
+  height:300px;
+  object-fit:contain;
+  background:#F1E5D8;
+}
+
+.photo-grid .photo img:not([src]) {
+  background:linear-gradient(135deg,#E8D0B4,#F5E6D5);
+}
+
+/* =====================================================
+   08. PROCÉS DE CONSTRUCCIÓ
+===================================================== */
+
+.steps {
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:17px;
+}
+
+.step {
+  position:relative;
+  padding:24px 20px;
+  border:1.5px solid var(--ink);
+  border-radius:16px;
+  background:var(--paper);
+  box-shadow:4px 4px 0 var(--ink);
+}
+
+.step:nth-child(1) { background:#FFF0B7; }
+.step:nth-child(2) { background:#DDEEFF; }
+.step:nth-child(3) { background:#FFE0E9; }
+.step:nth-child(4) { background:#E4F2D9; }
+
+.big-number {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  font-size:40px;
+  font-weight:800;
+  color:var(--brown);
+  line-height:1;
+  margin-bottom:22px;
+}
+
+.big-number::after {
+  content:"✳";
+  font-size:20px;
+  color:var(--ink);
+}
+
+.step h3 {
+  font-size:18px;
+  margin-bottom:10px;
+}
+
+.step p {
+  font-size:12px;
+  line-height:1.95;
+  margin-bottom:0;
+}
+
+.process-divider {
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:15px;
+  margin:35px 0;
+  color:var(--brown);
+  font-family:'Space Mono',monospace;
+  font-size:10px;
+  letter-spacing:1.5px;
+}
+
+.process-divider::before,
+.process-divider::after {
+  content:"";
+  flex:1;
+  height:1px;
+  background:var(--line);
+}
+
+/* =====================================================
+   09. PROVES I RESULTATS
+===================================================== */
+
+.test-grid {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:22px;
+}
+
+.test-card {
+  padding:27px;
+  border:1.5px solid var(--ink);
+  border-radius:20px;
+  box-shadow:4px 5px 0 var(--ink);
+}
+
+.test-card.blue {
+  background:#DDEEFF;
+}
+
+.test-card.yellow {
+  background:#FFF0B7;
+}
+
+.test-card h3 {
+  font-size:21px;
+  margin-bottom:13px;
+}
+
+.test-card p {
+  font-size:13px;
+  line-height:1.95;
+}
+
+.test-card p:last-child {
+  margin-bottom:0;
+}
+
+.test-stat {
+  display:flex;
+  align-items:center;
+  gap:20px;
+  margin:25px 0;
+  padding:20px;
+  background:var(--paper);
+  border:1.5px solid var(--ink);
+  border-radius:14px;
+}
+
+.test-stat strong {
+  font-family:'Manrope',sans-serif;
+  font-size:42px;
+  line-height:1;
+}
+
+.test-stat span {
+  font-size:11px;
+  line-height:1.7;
+}
+
+.result-banner {
+  position:relative;
+  overflow:hidden;
+  padding:36px;
+  background:var(--purple);
+  border:1.5px solid var(--ink);
+  border-radius:24px;
+  box-shadow:5px 6px 0 var(--ink);
+  text-align:center;
+}
+
+.result-banner::before,
+.result-banner::after {
+  content:"✦";
+  position:absolute;
+  font-size:50px;
+  color:rgba(56,51,59,.2);
+}
+
+.result-banner::before {
+  top:8px;
+  left:18px;
+  transform:rotate(-15deg);
+}
+
+.result-banner::after {
+  right:20px;
+  bottom:4px;
+  transform:rotate(15deg);
+}
+
+.result-banner h3 {
+  font-size:clamp(24px,4vw,32px);
+  margin-bottom:13px;
+}
+
+.result-banner p {
+  max-width:680px;
+  margin:0 auto;
+  font-size:13px;
+  line-height:1.95;
+}
+
+/* =====================================================
+   10. COSTOS I CALENDARI
+===================================================== */
+
+.cost-number {
+  font-family:'Manrope',sans-serif;
+  font-size:clamp(42px,6vw,58px);
+  line-height:1.1;
+  font-weight:800;
+  letter-spacing:-3px;
+  margin:17px 0;
+}
+
+.timeline {
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:18px;
+}
+
+.time-card {
+  position:relative;
+  padding:27px 20px;
+  text-align:center;
+  border:1.5px solid var(--ink);
+  border-radius:17px;
+  background:var(--blue);
+  box-shadow:4px 4px 0 var(--ink);
+}
+
+.time-card:nth-child(2) {
+  background:var(--pink);
+}
+
+.time-card:nth-child(3) {
+  background:var(--yellow);
+}
+
+.time-card strong {
+  display:block;
+  font-family:'Manrope',sans-serif;
+  font-size:37px;
+  line-height:1.2;
+  margin-bottom:10px;
+}
+
+.time-card span {
+  font-size:11px;
+  font-weight:700;
+}
+
+/* =====================================================
+   11. ESLOGAN I PUBLICITAT
+===================================================== */
+
+.brand-strip {
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:9px;
+  margin:26px auto 0;
+}
+
+.brand-chip {
+  padding:8px 12px;
+  border:1px solid var(--ink);
+  border-radius:6px;
+  background:var(--paper);
+  font-family:'Space Mono',monospace;
+  font-size:9px;
+  font-weight:700;
+}
+
+.slogan-section {
+  position:relative;
+  overflow:hidden;
+  padding:100px 7%;
+  text-align:center;
+  background:
+    radial-gradient(circle at 9% 27%,#F5B5C8 0 58px,transparent 59px),
+    radial-gradient(circle at 90% 73%,#91C5F2 0 80px,transparent 81px),
+    var(--yellow);
+  border-top:1.5px solid var(--ink);
+  border-bottom:1.5px solid var(--ink);
+}
+
+.slogan-section::before,
+.slogan-section::after {
+  content:"✳";
+  position:absolute;
+  font-size:60px;
+  color:rgba(56,51,59,.2);
+}
+
+.slogan-section::before {
+  top:15%;
+  left:19%;
+}
+
+.slogan-section::after {
+  right:17%;
+  bottom:10%;
+}
+
+.slogan-symbols {
+  font-size:30px;
+  letter-spacing:8px;
+}
+
+.slogan-section h2 {
+  max-width:900px;
+  margin:24px auto;
+  font-size:clamp(45px,7.5vw,83px);
+  line-height:1.02;
+  letter-spacing:-4px;
+}
+
+.slogan-section p {
+  font-size:14px;
+  line-height:1.9;
+}
+
+/* =====================================================
+   12. PEU DE PÀGINA
+===================================================== */
+
+footer {
+  padding:44px 7%;
+  background:var(--ink);
+  color:var(--cream);
+  text-align:center;
+}
+
+.footer-logo {
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  margin-bottom:14px;
+  font-family:'Manrope',sans-serif;
+  font-size:23px;
+  font-weight:800;
+}
+
+.footer-star {
+  color:var(--yellow);
+}
+
+.footer-symbol {
+  color:var(--pink);
+}
+
+footer p {
+  color:#E7DCCF;
+  font-size:11px;
+  line-height:1.9;
+}
+
+.footer-bottom {
+  margin-top:25px;
+  padding-top:18px;
+  border-top:1px solid rgba(255,255,255,.2);
+  font-family:'Space Mono',monospace;
+  font-size:9px;
+  letter-spacing:.5px;
+}
+
+/* =====================================================
+   13. DECORACIONS EXTRA
+===================================================== */
+
+.tape {
+  position:absolute;
+  z-index:3;
+  width:95px;
+  height:25px;
+  background:rgba(255,215,94,.75);
+  border-left:1px dashed rgba(56,51,59,.25);
+  border-right:1px dashed rgba(56,51,59,.25);
+  transform:rotate(-8deg);
+  pointer-events:none;
+}
+
+.tape.pink {
+  background:rgba(245,181,200,.8);
+  transform:rotate(7deg);
+}
+
+.tape.blue {
+  background:rgba(145,197,242,.8);
+  transform:rotate(-5deg);
+}
+
+.decorative-label {
+  display:inline-block;
+  padding:8px 12px;
+  background:var(--paper);
+  border:1.5px dashed var(--brown);
+  border-radius:5px;
+  font-family:'Space Mono',monospace;
+  font-size:9px;
+  font-weight:700;
+  letter-spacing:.7px;
+}
+
+.doodle-line {
+  width:70px;
+  height:10px;
+  margin:14px auto 0;
+  border-top:2px dashed var(--brown);
+  border-radius:50%;
+  transform:rotate(-3deg);
+}
+
+.mini-stamp {
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  padding:6px 9px;
+  background:var(--green);
+  border:1px solid var(--ink);
+  border-radius:4px;
+  font-family:'Space Mono',monospace;
+  font-size:9px;
+  font-weight:700;
+}
+
+.sticker-cloud {
+  position:absolute;
+  width:90px;
+  height:55px;
+  display:grid;
+  place-items:center;
+  background:var(--pink);
+  border:1.5px solid var(--ink);
+  border-radius:45%;
+  font-size:23px;
+  transform:rotate(-8deg);
+  pointer-events:none;
+}
+
+.section-decoration {
+  display:flex;
+  justify-content:center;
+  gap:12px;
+  margin:35px 0 0;
+  font-size:19px;
+}
+
+.section-decoration span:nth-child(2) {
+  color:var(--brown);
+}
+
+.section-decoration span:nth-child(3) {
+  color:#8A70CF;
+}
+
+/* =====================================================
+   14. ANIMACIONS I ACCESSIBILITAT
+===================================================== */
+
+.js-reveal {
+  opacity:1;
+  transform:translateY(0);
+}
+
+.js-ready .js-reveal {
+  opacity:0;
+  transform:translateY(18px);
+  transition:opacity .6s ease,transform .6s ease;
+}
+
+.js-ready .js-reveal.is-visible {
+  opacity:1;
+  transform:translateY(0);
+}
+
+a:focus-visible {
+  outline:3px solid var(--brown);
+  outline-offset:4px;
+}
+
+@media (max-width:1050px) {
+  nav {
+    align-items:flex-start;
+  }
+
+  .nav-links a {
+    padding:7px 9px;
+    font-size:10px;
+  }
+
+  .hero {
+    gap:28px;
+  }
+
+  .grid {
+    gap:16px;
+  }
+
+  .card {
+    padding:22px;
+  }
+}
+
+@media (max-width:850px) {
+  nav {
+    justify-content:center;
+    align-items:center;
+  }
+
+  .nav-links {
+    justify-content:center;
+  }
+
+  .hero {
+    grid-template-columns:1fr;
+    padding-top:70px;
+    padding-bottom:65px;
+    gap:20px;
+  }
+
+  .hero-copy {
+    max-width:700px;
+    margin-inline:auto;
+  }
+
+  .hero-art {
+    min-height:390px;
+  }
+
+  .art-card {
+    width:min(80%,360px);
+  }
+
+  .grid {
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+
+  .photo-grid {
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+
+  .steps {
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+
+  .split {
+    grid-template-columns:1fr;
+    gap:30px;
+  }
+
+  .split-copy {
+    max-width:720px;
+  }
+
+  .test-grid {
+    grid-template-columns:1fr 1fr;
+  }
+
+  .side-note {
+    display:none;
+  }
+}
+
+@media (max-width:560px) {
+  html {
+    scroll-padding-top:145px;
+  }
+
+  nav {
+    padding:12px 4%;
+    gap:12px;
+  }
+
+  .logo {
+    font-size:15px;
+  }
+
+  .logo-mark {
+    width:32px;
+    height:32px;
+  }
+
+  .nav-links {
+    gap:4px;
+  }
+
+  .nav-links a {
+    padding:6px 8px;
+    font-size:9px;
+  }
+
+  .hero {
+    padding:50px 6% 55px;
+  }
+
+  .hero h1 {
+    font-size:clamp(48px,14vw,68px);
+    letter-spacing:-2.8px;
+  }
+
+  .hero-copy > p {
+    font-size:13px;
+  }
+
+  .hero-art {
+    min-height:315px;
+  }
+
+  .art-card {
+    width:min(83%,300px);
+  }
+
+  .chair-icon {
+    font-size:100px;
+  }
+
+  .art-caption {
+    font-size:13px;
+  }
+
+  .sticker {
+    font-size:8px;
+    padding:7px 9px;
+  }
+
+  .sticker-blue {
+    right:-2px;
+    bottom:1%;
+  }
+
+  .sticker-pink {
+    top:0;
+  }
+
+  section {
+    padding:63px 0;
+  }
+
+  .section-inner,
+  .container {
+    width:88%;
+  }
+
+  .section-heading {
+    margin-bottom:35px;
+  }
+
+  .section-heading h2 {
+    font-size:35px;
+    letter-spacing:-1.5px;
+  }
+
+  .section-heading p {
+    font-size:12px;
+  }
+
+  .grid,
+  .photo-grid,
+  .steps,
+  .timeline,
+  .test-grid {
+    grid-template-columns:1fr;
+  }
+
+  .card {
+    padding:23px;
+  }
+
+  .photo:nth-child(3n + 2) {
+    transform:none;
+  }
+
+  .photo img {
+    height:250px;
+  }
+
+  .photo-grid.plans .photo img {
+    height:230px;
+  }
+
+  .photo-grid.final-photos .photo img {
+    height:280px;
+  }
+
+  .photo-grid.single {
+    grid-template-columns:1fr;
+  }
+
+  .paper-panel {
+    padding:17px;
+  }
+
+  .inner-paper {
+    padding:19px;
+  }
+
+  .split-copy h2 {
+    font-size:36px;
+  }
+
+  .gallery-heading {
+    margin:42px 0 23px;
+    font-size:22px;
+    gap:8px;
+  }
+
+  .gallery-heading::before,
+  .gallery-heading::after {
+    width:16px;
+  }
+
+  .hero-meta {
+    gap:12px;
+  }
+
+  .hero-buttons {
+    flex-direction:column;
+    align-items:stretch;
+  }
+
+  .button {
+    text-align:center;
+  }
+
+  .result-banner {
+    padding:29px 20px;
+  }
+
+  .slogan-section {
+    padding:75px 6%;
+  }
+
+  .slogan-section h2 {
+    font-size:49px;
+    letter-spacing:-2px;
+  }
+
+  .slogan-section::before {
+    left:5%;
+  }
+
+  .slogan-section::after {
+    right:5%;
+  }
+
+  .corner-star {
+    top:20px;
+    right:5%;
+  }
+
+  footer {
+    padding:38px 6%;
+  }
+}
+
+@media (prefers-reduced-motion:reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior:auto!important;
+    animation:none!important;
+    transition:none!important;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- =====================================================
+     NAVEGACIÓ PRINCIPAL
+===================================================== -->
+
+<nav aria-label="Navegació principal">
+  <a href="#inici" class="logo">
+    <span class="logo-mark">🪑</span>
+    PROJECTE<span>CADIRA</span>
+  </a>
+
+  <div class="nav-links">
+    <a href="#projecte">Projecte</a>
+    <a href="#recerca">Recerca</a>
+    <a href="#disseny">Disseny</a>
+    <a href="#construccio">Procés</a>
+    <a href="#proves">Proves</a>
+    <a href="#costos">Costos</a>
+    <a href="#publicitat">Pòster</a>
+    <a href="#conclusio">Final</a>
+  </div>
+</nav>
+
+<!-- =====================================================
+     PORTADA
+===================================================== -->
+
+<header class="hero" id="inici">
+  <div class="hero-copy">
+    <span class="eyebrow">
+      <span class="eyebrow-dot"></span>
+      Projecte tecnològic · 3r ESO
+      <span>✦</span>
+    </span>
+
+    <h1>
+      Aprèn,<br>
+      creix i <span class="highlight">brilla.</span>
+    </h1>
+
+    <p>
+      Una cadira de cartró, moltes idees i un objectiu:
+      crear un espai pràctic per guardar els ukeleles i
+      aprofitar millor l'espai de l'aula de música.
+    </p>
+
+    <div class="hero-buttons">
+      <a class="button button-yellow" href="#projecte">
+        Descobreix el projecte <span>↘</span>
+      </a>
+      <a class="button button-pink" href="#disseny">
+        Veure el disseny <span>✳</span>
+      </a>
+    </div>
+
+    <div class="hero-meta">
+      <span>📦 CARTRÓ</span>
+      <span>📐 DISSENY</span>
+      <span>🎸 MÚSICA</span>
+    </div>
+  </div>
+
+  <div class="hero-art">
+    <span class="floating-star star-one">✦</span>
+    <span class="floating-star star-two">✧</span>
+    <span class="floating-star star-three">✳</span>
+
+    <span class="sticker sticker-pink">fet amb creativitat ♡</span>
+
+    <div class="art-card">
+      <div class="art-inner">
+        <div class="micro-label">PROJECTE NÚM. 001</div>
+
+<img
+  class="chair-photo"
+  src="cadirafinal_3.jpeg"
+  alt="La nostra cadira de cartró"
+>
+
+<div class="art-caption">La nostra cadira!</div>
+        <p>Disseny · Cartró · Música</p>
+      </div>
+    </div>
+
+    <span class="sticker sticker-blue">★ fet per nosaltres ★</span>
+  </div>
+
+  <span class="decorative-orbit" style="top:12%;right:2%;"></span>
+</header>
+
+<div class="ticker" aria-label="Valors del projecte">
+  <div class="ticker-track">
+    ⭐ CREATIVITAT · ✦ DISSENY · ♡ SOSTENIBILITAT · ✧ TREBALL EN EQUIP ·
+    📐 PLANIFICACIÓ · 🎸 MÚSICA · 📦 CARTRÓ ·
+    ⭐ CREATIVITAT · ✦ DISSENY · ♡ SOSTENIBILITAT · ✧ TREBALL EN EQUIP ·
+    📐 PLANIFICACIÓ · 🎸 MÚSICA · 📦 CARTRÓ ·
+  </div>
+</div>
+
+<!-- =====================================================
+     01. EL PROJECTE
+===================================================== -->
+
+<section id="projecte">
+  <span class="corner-star">✳</span>
+
+  <div class="section-inner">
+    <div class="section-heading">
+      <span class="section-tag">01 · La idea</span>
+      <h2>Tot comença amb un problema 💡</h2>
+      <p>
+        Abans de construir, vam observar què passava a l'aula
+        i vam pensar com ho podíem millorar.
+      </p>
+    </div>
+
+    <div class="grid">
+      <article class="card card-pink js-reveal">
+        <div class="card-icon">🎸</div>
+        <div class="micro-label">01 / NECESSITAT</div>
+        <h3>El problema</h3>
+        <p>
+          Els ukeleles ocupen espai a les taules de l'aula
+          de música i poden caure si no es col·loquen bé.
+        </p>
+      </article>
+
+      <article class="card card-blue js-reveal">
+        <div class="card-icon">💭</div>
+        <div class="micro-label">02 / PROPOSTA</div>
+        <h3>La nostra idea</h3>
+        <p>
+          Dissenyar una cadira de cartró amb un calaix
+          integrat al costat dret per guardar ukeleles
+          o altres materials.
+        </p>
+      </article>
+
+      <article class="card card-yellow js-reveal">
+        <div class="card-icon">✨</div>
+        <div class="micro-label">03 / OBJECTIU</div>
+        <h3>El nostre objectiu</h3>
+        <p>
+          Aprofitar millor l'espai, crear un disseny original
+          i comprovar com funciona el nostre prototip.
+        </p>
+      </article>
+    </div>
+
+    <div class="section-decoration">
+      <span>✦</span><span>📦</span><span>✧</span>
+    </div>
+  </div>
+</section>
+
+<!-- =====================================================
+     02. RECERCA I REFERÈNCIES
+===================================================== -->
+
+<section id="recerca"
+  style="background:#FCE8D6;border-top:1.5px solid var(--ink);border-bottom:1.5px solid var(--ink);">
+
+  <div class="section-inner">
+    <div class="split">
+      <div class="split-copy">
+        <span class="section-tag" style="background:var(--blue)">
+          02 · Inspiració
+        </span>
+
+        <h2>Investiguem abans de crear 🔎</h2>
+
+        <p>
+          Per començar el projecte, vam buscar referències de
+          mobles de cartró. Ens van ajudar a inspirar-nos en
+          l'estructura de la cadira, els reposabraços i els calaixos.
+        </p>
+
+        <p>
+          Després vam adaptar aquestes idees a la nostra pròpia
+          proposta.
+        </p>
+
+        <span class="sticker sticker-yellow">Inspiració ≠ copiar! ⭐</span>
+
+        <div class="section-decoration" style="justify-content:flex-start;">
+          <span>📎</span><span>✏️</span><span>📐</span>
+        </div>
+      </div>
+
+      <div class="paper-panel">
+        <div class="inner-paper">
+          <div class="micro-label">ARXIU D'INVESTIGACIÓ · 01</div>
+          <h3>📎 Les nostres referències</h3>
+
+          <a class="reference"
+             href="https://www.cajeando.com/muebles-de-carton/silla-b-de-carton.html"
+             target="_blank" rel="noopener noreferrer">
+             Cadira de cartró ↗
+          </a>
+
+          <a class="reference"
+             href="https://kartonplan.com/producto/centero/"
+             target="_blank" rel="noopener noreferrer">
+            Inspiració per als reposabraços ↗
+          </a>
+
+          <a class="reference"
+             href="https://kartonplan.com/producto/bujeta/"
+             target="_blank" rel="noopener noreferrer">
+             Inspiració per als calaixos ↗
+          </a>
+
+          <div class="reference-note">
+            Cada referència ens va aportar idees per resoldre
+            una part del disseny.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h3 class="gallery-heading">Referències visuals</h3>
+
+    <p class="gallery-intro">
+      Imatges de referència que ens van ajudar a definir
+      l'estructura, les formes i les possibles solucions.
+    </p>
+
+   <div class="photo-grid">
+  <div class="photo js-reveal">
+    <img src="referencia-1.jpg"
+         alt="Primera referència de moble de cartró"
+         loading="lazy">
+    <div class="photo-label">Referència 01 · Cadira</div>
+  </div>
+
+  <div class="photo js-reveal">
+    <img src="referencia-2.png"
+         alt="Segona referència visual del projecte"
+         loading="lazy">
+    <div class="photo-label">Referència 02 · Reposabraços</div>
+  </div>
+
+  <div class="photo js-reveal">
+    <img src="referencia-3.jpg"
+         alt="Tercera referència visual del projecte"
+         loading="lazy">
+    <div class="photo-label">Referència 03 · Calaixos</div>
+  </div>
+</div>
+</div>
+</section>
+
+<!-- =====================================================
+     03. DISSENY, ESBOSSOS I PLÀNOLS
+===================================================== -->
+
+<section id="disseny">
+  <div class="section-inner">
+    <div class="section-heading">
+      <span class="section-tag" style="background:var(--yellow)">
+        03 · El disseny
+      </span>
+
+      <h2>De les idees al prototip ✏️</h2>
+
+      <p>
+        Vam valorar diverses opcions abans de decidir
+        com seria la nostra cadira.
+      </p>
+    </div>
+
+    <div class="grid" style="margin-bottom:55px;">
+      <article class="card js-reveal">
+        <span class="number-label">IDEA 01</span>
+        <div class="card-icon">🪑</div>
+        <h3>Cadira amb calaix</h3>
+        <p>
+          Una proposta bàsica, amb calaix.
+        </p>
+      </article>
+
+      <article class="card card-blue js-reveal">
+        <span class="number-label">IDEA 02</span>
+        <div class="card-icon">📐</div>
+        <h3>Cadira amb reposabraços</h3>
+        <p>
+          Una opció amb reposabraços per completar
+          l'estructura.
+        </p>
+      </article>
+
+      <article class="card card-pink card-featured js-reveal">
+        <span class="number-label">IDEA 03</span>
+        <div class="card-icon">🗄️</div>
+        <h3>Cadira amb calaix per a l'ukelele⭐</h3>
+        <p>
+          Vam escollir una cadira amb reposabraços,
+          un calaix integrat al costat dret i un calaix
+          per l'ukelele.
+        </p>
+      </article>
+    </div>
+
+    <div class="split">
+      <div class="split-copy">
+        <span class="section-tag" style="background:var(--pink)">
+          Escala i proporcions
+        </span>
+
+        <h2 style="font-size: 45px;">Un disseny a escala 1:5 📐</h2>
+
+        <p>
+          El nostre prototip és cinc vegades més petit que
+          la mida real prevista. Això ens permet representar
+          la idea en una maqueta.
+        </p>
+
+        <p>
+          La cadira té un respatller ample, reposabraços i
+          un calaix lateral. També vam decorar-la amb estrelles
+          blaves per donar-li un estil propi.
+        </p>
+
+        <span class="sticker sticker-pink">
+          Detalls que ens representen ♡
+        </span>
+      </div>
+
+      <div class="paper-panel">
+        <div class="inner-paper" style="text-align:center;">
+          <div style="font-size:68px;">📐</div>
+          <div class="micro-label">DEL DIBUIX A LA REALITAT</div>
+          <h3>Del paper a la maqueta</h3>
+
+          <p style="font-size:13px;line-height:1.9;">
+            Primer vam dibuixar les idees i després vam
+            preparar els croquis i els plànols per concretar
+            el disseny.
+          </p>
+
+          <div class="design-note">
+            <div class="design-note-icon">✏️</div>
+            <p>
+              Els dibuixos ens ajuden a visualitzar les peces
+              abans de començar a construir.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h3 class="gallery-heading">✏️ Les primeres idees</h3>
+
+    <div class="photo-grid single">
+      <div class="photo js-reveal">
+        <img src="esbossospaper.jpg"
+             alt="Primers esbossos dibuixats sobre paper"
+             loading="lazy">
+        <div class="photo-label">Esbossos inicials</div>
+      </div>
+    </div>
+
+    <h3 class="gallery-heading">📐 Croquis del projecte</h3>
+
+    <p class="gallery-intro">
+      Els croquis ens permeten estudiar les formes i els
+      diferents elements abans de preparar els plànols.
+    </p>
+
+    <div class="photo-grid">
+      <div class="photo js-reveal">
+        <img src="cadira_croquis.jpg"
+             alt="Croquis de la cadira"
+             loading="lazy">
+        <div class="photo-label">Croquis de la cadira</div>
+      </div>
+
+      <div class="photo js-reveal">
+        <img src="calaix-ukelele_croquis.jpg"
+             alt="Croquis del calaix per a l'ukelele"
+             loading="lazy">
+        <div class="photo-label">Calaix per a l'ukelele</div>
+      </div>
+
+      <div class="photo js-reveal">
+        <img src="calaix-cadira_croquis.jpg"
+             alt="Croquis del calaix de la cadira"
+             loading="lazy">
+        <div class="photo-label">Calaix de la cadira</div>
+      </div>
+
+      <div class="photo js-reveal">
+        <img src="ukelele_croquis.jpg"
+             alt="Croquis de l'ukelele"
+             loading="lazy">
+        <div class="photo-label">Croquis de l'ukelele</div>
+      </div>
+    </div>
+
+    <h3 class="gallery-heading">📏 Plànols 2D i LibreCAD</h3>
+
+    <p class="gallery-intro">
+      Diferents vistes tècniques per representar la forma
+      del projecte des de diversos angles.
+    </p>
+
+    <div class="photo-grid plans">
+      <div class="photo js-reveal">
+        <img src="alçat-librecad.jpg"
+             alt="Alçat del projecte dibuixat amb LibreCAD"
+             loading="lazy">
+        <div class="photo-label">Alçat · LibreCAD</div>
+      </div>
+
+      <div class="photo js-reveal">
+        <img src="perfil-librecad.jpg"
+             alt="Perfil del projecte dibuixat amb LibreCAD"
+             loading="lazy">
+        <div class="photo-label">Perfil · LibreCAD</div>
+      </div>
+
+      <div class="photo js-reveal">
+        <img src="planta-librecad.jpg"
+             alt="Planta del projecte dibuixada amb LibreCAD"
+             loading="lazy">
+        <div class="photo-label">Planta · LibreCAD</div>
+      </div>
+
+      <div class="photo js-reveal">
+        <img src="planols-ma.jpg"
+             alt="Plànols del projecte fets a mà"
+             loading="lazy">
+        <div class="photo-label">Plànols fets a mà</div>
+      </div>
+    </div>
+
+    <div class="section-decoration">
+      <span>📏</span><span>✦</span><span>📐</span>
+    </div>
+  </div>
+</section>
+
+<!-- =====================================================
+     04. CONSTRUCCIÓ
+===================================================== -->
+
+<section id="construccio"
+  style="background:#E8E3FF;border-top:1.5px solid var(--ink);border-bottom:1.5px solid var(--ink);">
+
+  <div class="section-inner">
+    <div class="section-heading">
+      <span class="section-tag" style="background:var(--yellow)">
+        04 · Mans a l'obra
+      </span>
+
+      <h2>Com la vam construir 🛠️</h2>
+
+      <p>
+        Un projecte fet pas a pas, combinant construcció,
+        decoració i treball en equip.
+      </p>
+    </div>
+
+    <div class="steps">
+      <article class="step js-reveal">
+        <div class="big-number">01</div>
+        <h3>Preparar</h3>
+        <p>
+          Vam dibuixar les peces sobre el cartró i les
+          vam retallar amb cura.
+        </p>
+      </article>
+
+      <article class="step js-reveal">
+        <div class="big-number">02</div>
+        <h3>Muntar</h3>
+        <p>
+          Vam unir les peces per donar forma
+          a l'estructura.
+        </p>
+      </article>
+
+      <article class="step js-reveal">
+        <div class="big-number">03</div>
+        <h3>Completar</h3>
+        <p>
+          Vam preparar el complement per a l'ukelele
+          i vam afegir els detalls del projecte.
+        </p>
+      </article>
+
+      <article class="step js-reveal">
+        <div class="big-number">04</div>
+        <h3>Decorar ⭐</h3>
+        <p>
+          Vam personalitzar la cadira amb estrelles blaves
+          i altres detalls decoratius.
+        </p>
+      </article>
+    </div>
+
+    <div class="process-divider">
+      <span>DEL CARTRÓ AL PROTOTIP</span>
+      <span>✂️</span>
+    </div>
+
+    <h3 class="gallery-heading">📸 El procés de construcció</h3>
+
+    <div class="photo-grid">
+      <div class="photo js-reveal">
+        <img src="pas_1.jpg"
+             alt="Primer pas de la construcció de la cadira"
+             loading="lazy">
+        <div class="photo-label">Pas 01 · Preparació</div>
+      </div>
+
+      <div class="photo js-reveal">
+        <img src="pas_2.jpg"
+             alt="Segon pas de la construcció de la cadira"
+             loading="lazy">
+        <div class="photo-label">Pas 02 · Construcció</div>
+      </div>
+
+      <div class="photo js-reveal">
+        <img src="pas_tallar3.jpg"
+             alt="Tall de la forma de l'ukelele"
+             loading="lazy">
+        <div class="photo-label">Pas 03A · Tallar la forma de l'ukelele</div>
+      </div>
+
+      <div class="photo js-reveal">
+        <img src="pas_ukelele3.jpg"
+             alt="Treball de les cordes de l'ukelele"
+             loading="lazy">
+        <div class="photo-label">Pas 03B · Treballar les cordes</div>
+      </div>
+
+      <div class="photo js-reveal">
+        <img src="pas_4.jpg"
+             alt="Quart pas del procés de construcció"
+             loading="lazy">
+        <div class="photo-label">Pas 04 · Acabats</div>
+      </div>
+    </div>
+
+    <h3 class="gallery-heading">🪑 La cadira base</h3>
+
+    <div class="photo-grid">
+      <div class="photo js-reveal">
+        <img src="cadirabase_1.jpg"
+             alt="Primera fotografia de la cadira base"
+             loading="lazy">
+        <div class="photo-label">Cadira base · Vista 01</div>
+      </div>
+
+      <div class="photo js-reveal">
+        <img src="cadirabase_2.jpg"
+             alt="Segona fotografia de la cadira base"
+             loading="lazy">
+        <div class="photo-label">Cadira base · Vista 02</div>
+      </div>
+
+      <div class="photo js-reveal">
+        <img src="cadirabase_3.jpg"
+             alt="Tercera fotografia de la cadira base"
+             loading="lazy">
+        <div class="photo-label">Cadira base · Vista 03</div>
+      </div>
+    </div>
+
+    <div class="process-divider">
+      <span>EL RESULTAT</span>
+      <span>⭐</span>
+    </div>
+
+    <h3 class="gallery-heading">💖 El resultat final</h3>
+
+    <p class="gallery-intro">
+      Les diferents vistes de la cadira acabada.
+    </p>
+
+    <div class="photo-grid final-photos">
+      <div class="photo js-reveal">
+        <img src="cadirafinal_1.jpeg"
+             alt="Primera vista de la cadira acabada"
+             loading="lazy">
+        <div class="photo-label">Cadira final · Vista 01</div>
+      </div>
+
+      <div class="photo js-reveal">
+        <img src="cadirafinal_2.jpeg"
+             alt="Segona vista de la cadira acabada"
+             loading="lazy">
+        <div class="photo-label">Cadira final · Vista 02</div>
+      </div>
+
+      <div class="photo js-reveal">
+        <img src="cadirafinal_3.jpeg"
+             alt="Tercera vista de la cadira acabada"
+             loading="lazy">
+        <div class="photo-label">Cadira final · Vista 03</div>
+      </div>
+    </div>
+
+    <!-- S'ha eliminat el missatge blau que hi havia sota les fotos. -->
+
+    <div class="section-decoration">
+      <span>✂️</span><span>📦</span><span>🪑</span>
+    </div>
+  </div>
+</section>
+
+<!-- =====================================================
+     05. PROVES DEL PROTOTIP
+===================================================== -->
+
+<section id="proves">
+  <span class="corner-star">✦</span>
+
+  <div class="section-inner">
+    <div class="section-heading">
+      <span class="section-tag" style="background:var(--blue)">
+        05 · Comprovem-ho
+      </span>
+
+      <h2>Les proves del prototip 🧪</h2>
+
+      <p>
+        Construir és només una part del projecte.
+        També cal observar com respon el que hem fet.
+      </p>
+    </div>
+
+    <div class="test-grid">
+      <article class="test-card blue js-reveal">
+        <div class="card-icon">📱</div>
+        <div class="micro-label">PROVA REALITZADA</div>
+        <h3>La prova amb un mòbil</h3>
+
+        <p>
+          Durant les proves vam col·locar un mòbil de
+          388 g sobre el prototip.
+        </p>
+
+        <p>
+          Aquesta prova ens va permetre observar el
+          comportament de la maqueta amb aquell objecte concret.
+        </p>
+
+        <div class="test-stat">
+          <strong>388 g</strong>
+          <span>
+            Pes del mòbil utilitzat<br>
+            en la prova del prototip
+          </span>
+        </div>
+      </article>
+
+      <article class="test-card yellow js-reveal">
+        <div class="card-icon">🔧</div>
+        <div class="micro-label">POSSIBLES MILLORES</div>
+        <h3>Què milloraríem?</h3>
+
+        <p>
+          La nostra principal proposta de millora seria
+          augmentar l'estabilitat de la cadira.
+        </p>
+
+        <p>
+          Caldria fer més proves abans de poder afirmar
+          que la cadira real suportaria una persona.
+        </p>
+
+        <div class="design-note" style="background:var(--paper);">
+          <div class="design-note-icon">💡</div>
+          <p>
+            Les proves ens ajuden a detectar què funciona
+            i què podríem millorar.
+          </p>
+        </div>
+      </article>
+    </div>
+
+    <h3 class="gallery-heading">📱 Prova de 388 g</h3>
+
+    <div class="photo-grid single">
+      <div class="photo js-reveal">
+        <img src="prova_388.jpg"
+             alt="Prova del prototip amb un mòbil de 388 grams"
+             loading="lazy">
+        <div class="photo-label">Prova amb un mòbil de 388 g</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =====================================================
+     06. MATERIALS, COSTOS I TEMPS
+===================================================== -->
+
+<section id="costos"
+  style="background:#DDF0D2;border-top:1.5px solid var(--ink);border-bottom:1.5px solid var(--ink);">
+
+  <div class="section-inner">
+    <div class="section-heading">
+      <span class="section-tag" style="background:var(--pink)">
+        06 · Organització
+      </span>
+
+      <h2>Temps, materials i costos ⏰</h2>
+
+      <p>
+        Organitzar-nos ens va ajudar a repartir la feina
+        i aprofitar el temps disponible.
+      </p>
+    </div>
+
+    <div class="grid">
+      <article class="card card-yellow js-reveal">
+        <div class="card-icon">📦</div>
+        <div class="micro-label">RECURSOS</div>
+        <h3>Materials</h3>
+
+        <ul>
+          <li>Cartró</li>
+          <li>Cúter i tisores</li>
+          <li>Cola</li>
+          <li>Retoladors i bolígrafs</li>
+          <li>Adhesius d'estrelles</li>
+          <li>Fil elàstic de colors</li>
+        </ul>
+      </article>
+
+      <article class="card card-pink js-reveal">
+        <div class="card-icon">💶</div>
+        <div class="micro-label">PRESSUPOST</div>
+        <h3>Cost aproximat</h3>
+
+        <p>
+          El cost estimat del projecte va ser d'uns:
+        </p>
+
+        <div class="cost-number">5 €</div>
+
+        <p style="font-size:11px;">
+          Cost aproximat segons el nostre registre.
+        </p>
+      </article>
+
+      <article class="card card-blue js-reveal">
+        <div class="card-icon">🕒</div>
+        <div class="micro-label">PLANIFICACIÓ</div>
+        <h3>Temps total</h3>
+
+        <p>
+          Vam dedicar aproximadament:
+        </p>
+
+        <div class="cost-number">4 h</div>
+
+        <p style="font-size:11px;">
+          Entre la construcció, el complement i la decoració.
+        </p>
+      </article>
+    </div>
+
+    <h3 class="gallery-heading">El nostre calendari</h3>
+
+    <div class="timeline">
+      <div class="time-card js-reveal">
+        <strong>1 h</strong>
+        <span>Retallar i enganxar</span>
+      </div>
+
+      <div class="time-card js-reveal">
+        <strong>1 h</strong>
+        <span>Fer el complement i decorar</span>
+      </div>
+
+      <div class="time-card js-reveal">
+        <strong>2 h</strong>
+        <span>Decorar la cadira a classe</span>
+      </div>
+    </div>
+
+    <div class="section-decoration">
+      <span>📦</span><span>⏱️</span><span>💶</span>
+    </div>
+  </div>
+</section>
+
+<!-- =====================================================
+     07. ESTRATÈGIA COMERCIAL I PÒSTER
+===================================================== -->
+
+<section id="publicitat">
+  <div class="section-inner">
+    <div class="section-heading">
+      <span class="section-tag" style="background:var(--pink)">
+        07 · La nostra marca
+      </span>
+
+      <h2 style="font-size: 50px;">Una cadira amb personalitat 💫</h2>
+
+      <p>
+        També vam pensar com presentar el projecte
+        d'una manera atractiva.
+      </p>
+    </div>
+
+    <div class="result-banner js-reveal">
+      <div style="font-size:42px;margin-bottom:16px;">
+        ⭐ 🎸 ⭐
+      </div>
+
+      <div class="micro-label">LA NOSTRA IDENTITAT</div>
+
+      <h3>Aprèn, creix i brilla</h3>
+
+      <p>
+        Una idea nascuda a l'aula, creada amb cartró i
+        transformada en un prototip propi. El nostre projecte
+        combina creativitat, utilitat i música.
+      </p>
+
+      <p style="margin-top:20px;font-weight:800;font-size:15px;">
+        Creat per aprendre. Dissenyat per imaginar. ♡
+      </p>
+
+      <div class="brand-strip">
+        <span class="brand-chip">✦ CREATIVITAT</span>
+        <span class="brand-chip">📦 CARTRÓ</span>
+        <span class="brand-chip">🎸 MÚSICA</span>
+        <span class="brand-chip">📐 DISSENY</span>
+      </div>
+    </div>
+
+    <h3 class="gallery-heading">📣 El nostre pòster comercial</h3>
+
+    <p class="gallery-intro">
+      La proposta visual per presentar i donar a conèixer
+      el nostre projecte.
+    </p>
+
+    <div class="photo-grid single poster">
+      <div class="photo js-reveal">
+        <img src="estrategiacomercial.png"
+             alt="Pòster de l'estratègia comercial del projecte"
+             loading="lazy">
+        <div class="photo-label">Estratègia comercial · Pòster</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =====================================================
+     08. CONCLUSIÓ I REFLEXIÓ FINAL
+===================================================== -->
+
+<section id="conclusio"
+  style="background:#FCE8D6;border-top:1.5px solid var(--ink);">
+
+  <div class="section-inner">
+    <div class="section-heading">
+      <span class="section-tag" style="background:var(--green)">
+        08 · Reflexió final
+      </span>
+
+      <h2>Què ens emportem del projecte? </h2>
+
+      <p>
+        Una mirada enrere al procés, les decisions
+        i el que hem après.
+      </p>
+    </div>
+
+    <div class="grid">
+      <article class="card card-yellow js-reveal">
+        <div class="card-icon">🌟</div>
+        <h3>Originalitat</h3>
+        <p>
+          Hem creat una proposta pròpia combinant una cadira,
+          reposabraços i un calaix lateral.
+        </p>
+      </article>
+
+      <article class="card card-blue js-reveal">
+        <div class="card-icon">🤝</div>
+        <h3>Treball en equip</h3>
+        <p>
+          Hem col·laborat per organitzar les tasques,
+          construir el prototip i prendre decisions.
+        </p>
+      </article>
+
+      <article class="card card-pink js-reveal">
+        <div class="card-icon">🛠️</div>
+        <h3>Millora contínua</h3>
+        <p>
+          Les proves ens han ajudat a veure que l'estabilitat
+          és un aspecte que hauríem de millorar.
+        </p>
+      </article>
+    </div>
+
+    <div style="max-width:750px;margin:50px auto 0;text-align:center;">
+      <div class="micro-label">UNA IDEA · MOLTS APRENENTATGES</div>
+
+      <p style="font-size:15px;line-height:2;margin:20px 0 27px;">
+        Aquest projecte ens ha permès transformar una idea
+        en una maqueta, experimentar amb materials i descobrir
+        que el disseny també consisteix a provar, observar
+        i buscar solucions.
+      </p>
+
+      <span class="sticker sticker-yellow">
+        Projecte completat amb creativitat! ✨
+      </span>
+    </div>
+
+    <div class="section-decoration">
+      <span>💡</span><span>✦</span><span>💛</span>
+    </div>
+  </div>
+</section>
+
+<!-- =====================================================
+     ESLOGAN FINAL
+===================================================== -->
+
+<div class="slogan-section">
+  <div class="slogan-symbols">✦ ⭐ ✧ ⭐ ✦</div>
+
+  <div class="micro-label" style="margin-top:20px;">
+    PROJECTE TECNOLÒGIC · 3r ESO
+  </div>
+
+  <h2>Aprèn, creix<br>i brilla.</h2>
+
+  <p>
+    Una petita maqueta, un munt d'idees
+    i moltes ganes de crear.
+  </p>
+
+  <div class="slogan-symbols" style="margin-top:22px;">
+    ♡ 🎸 🪑 ♡
+  </div>
+</div>
+
+<!-- =====================================================
+     PEU DE PÀGINA
+===================================================== -->
+
+<footer>
+  <div class="footer-logo">
+    PROJECTE<span class="footer-star">CADIRA</span>
+    <span class="footer-symbol">✦</span>
+  </div>
+
+  <p>
+    Projecte tecnològic · 3r d'ESO<br>
+    Fet amb creativitat, cartró i treball en equip.
+  </p>
+
+  <div class="footer-bottom">
+    © EL NOSTRE PROJECTE · APRÈN, CREIX I BRILLA.
+  </div>
+</footer>
+
+<!-- =====================================================
+     ANIMACIONS EN APARÈIXER A LA PANTALLA
+===================================================== -->
+
+<script>
+document.documentElement.classList.add('js-ready');
+
+const revealItems = document.querySelectorAll('.js-reveal');
+
+if (
+  'IntersectionObserver' in window &&
+  !window.matchMedia('(prefers-reduced-motion: reduce)').matches
+) {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, {
+    threshold:0.12
+  });
+
+  revealItems.forEach((item) => observer.observe(item));
+} else {
+  revealItems.forEach((item) => item.classList.add('is-visible'));
+}
+</script>
+
+</body>
+</html>
